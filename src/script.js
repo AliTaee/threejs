@@ -14,7 +14,12 @@ const material = new THREE.MeshBasicMaterial({
   color: 0xff0000,
 });
 const mesh = new THREE.Mesh(geometry, material);
-mesh.rotateX(1);
+
+mesh.position.set(1.7, 1.6, 0.4);
+
+// Axes Helper
+// const axesHelper = new THREE.AxesHelper();
+// scene.add(axesHelper);
 
 // We need to add every object to the scene in order to render it
 scene.add(mesh);
@@ -28,7 +33,7 @@ const sizes = {
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
 camera.position.z = 4;
-camera.position.y = -1;
+camera.position.y = 1;
 camera.position.x = 1;
 scene.add(camera);
 
