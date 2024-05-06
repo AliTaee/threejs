@@ -46,6 +46,8 @@ camera.position.y = 1;
 camera.position.x = 1;
 scene.add(camera);
 
+camera.lookAt(mesh.position);
+
 // Renderer
 const renderer = new THREE.WebGLRenderer({
   canvas,
