@@ -2,6 +2,11 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 /**
+ * Settings Elements
+ */
+const colorInput = document.getElementById('cubColor')
+
+/**
  * Base
  */
 // Canvas
@@ -46,6 +51,11 @@ window.addEventListener('dblclick', () => {
   } else {
     document.exitFullscreen()
   }
+})
+
+colorInput.addEventListener('change', (event) => {
+  const newColor = event.target.value
+  mesh.material.color.set(newColor)
 })
 
 /**

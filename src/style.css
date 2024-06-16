@@ -6,6 +6,7 @@
 html,
 body {
   overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .webgl {
@@ -13,4 +14,12 @@ body {
   top: 0;
   left: 0;
   outline: none;
+}
+
+.settings {
+  color: #fefefe;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
 }
