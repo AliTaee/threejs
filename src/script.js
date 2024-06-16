@@ -4,7 +4,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 /**
  * Settings Elements
  */
-const colorInput = document.getElementById('cubColor')
+const colorInput = document.getElementById('cubeColor')
+const animationInputs = document.querySelectorAll(
+  'input[name="animation_type"]'
+)
+let animationType = 'none'
 
 /**
  * Base
@@ -19,7 +23,7 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const material = new THREE.MeshBasicMaterial({ color: 0x17d372 })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
@@ -45,6 +49,7 @@ window.addEventListener('resize', () => {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 })
 
+// Fullscreen
 window.addEventListener('dblclick', () => {
   if (!document.fullscreenElement) {
     canvas.requestFullscreen()
@@ -53,9 +58,18 @@ window.addEventListener('dblclick', () => {
   }
 })
 
+/*
+ * Settings
+ */
 colorInput.addEventListener('change', (event) => {
   const newColor = event.target.value
   mesh.material.color.set(newColor)
+})
+
+animationInputs.forEach((element) => {
+  element.addEventListener('click', (event) => {
+    animationType = event.target.value
+  })
 })
 
 /**
@@ -90,7 +104,14 @@ const clock = new THREE.Clock()
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime()
-  mesh.rotation.y = elapsedTime
+  const animations = {
+    none: mesh.rotation.y,
+    simple: elapsedTime,
+    sin: Math.sin(elapsedTime),
+    cos: Math.cos(elapsedTime),
+  }
+
+  mesh.rotation.y = animations[animationType]
 
   // Update controls
   controls.update()

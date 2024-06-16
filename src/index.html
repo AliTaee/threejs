@@ -9,8 +9,24 @@
 </head>
 <body>
     <aside class="settings">
-        <input type="color" id="cubColor" name="cub color" value="#e66465" />
-        <label for="cubColor">Cub color</label>
+        <input type="color" id="cubeColor" name="cube_color" value="#17d372" />
+        <label for="cubeColor">Cube Color</label>
+
+        <fieldset class="animation">
+            <legend>Choose your Animation</legend>
+
+            <input type="radio" id="none" name="animation_type" value="none" checked />
+            <label for="none">None</label><br />
+
+            <input type="radio" id="simple" name="animation_type" value="simple" />
+            <label for="simple">Simple</label><br />
+
+            <input type="radio" id="sin" name="animation_type" value="sin" />
+            <label for="sin">Sin(X)</label><br />
+
+            <input type="radio" id="cos" name="animation_type" value="cos" />
+            <label for="cos">Cos(X)</label>
+        </fieldset>
     </aside>
     <canvas class="webgl"></canvas>
     <script type="module" src="./script.js"></script>

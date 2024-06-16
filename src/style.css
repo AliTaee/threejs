@@ -23,3 +23,7 @@ body {
   right: 1rem;
   z-index: 1;
 }
+.settings .animation {
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
