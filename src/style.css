@@ -16,15 +16,3 @@ body {
   left: 0;
   outline: none;
 }
-
-.settings {
-  color: #fefefe;
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1;
-}
-.settings .animation {
-  margin-top: 1rem;
-  padding: 0.5rem;
-}
