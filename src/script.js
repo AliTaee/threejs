@@ -1,22 +1,12 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import GUI from 'lil-gui'
-import gsap from 'gsap'
 
 /**
- * Debug
+ * Textures
  */
-const gui = new GUI({
-  width: 300,
-  title: 'Debug UI',
-})
-const debugObj = {}
-
-window.addEventListener('keydown', (event) => {
-  if (event.key == 'h') {
-    gui.show(gui._hidden)
-  }
-})
+const textureLoader = new THREE.TextureLoader()
+const texture = textureLoader.load('/textures/door/color.jpg')
+texture.colorSpace = THREE.SRGBColorSpace
 
 /**
  * Base
@@ -30,46 +20,10 @@ const scene = new THREE.Scene()
 /**
  * Object
  */
-debugObj.color = '#33cc59'
-const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2)
-const material = new THREE.MeshBasicMaterial({
-  color: debugObj.color,
-  wireframe: true,
-})
+const geometry = new THREE.BoxGeometry(1, 1, 1)
+const material = new THREE.MeshBasicMaterial({ map: texture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
-
-gui.add(mesh.position, 'x').min(-3).max(3).step(0.01)
-gui.add(mesh.position, 'y').min(-3).max(3).step(0.01)
-gui.add(mesh.position, 'z').min(-3).max(3).step(0.01)
-gui.add(mesh, 'visible')
-gui.add(material, 'wireframe')
-gui
-  .addColor(debugObj, 'color')
-  .onChange(() => material.color.set(debugObj.color))
-
-debugObj.spin = () => {
-  gsap.to(mesh.rotation, { y: mesh.rotation.y + Math.PI * 2 })
-}
-gui.add(debugObj, 'spin')
-
-debugObj.subdivision = 2
-gui
-  .add(debugObj, 'subdivision')
-  .min(1)
-  .max(10)
-  .step(1)
-  .onFinishChange(() => {
-    mesh.geometry.dispose()
-    mesh.geometry = new THREE.BoxGeometry(
-      1,
-      1,
-      1,
-      debugObj.subdivision,
-      debugObj.subdivision,
-      debugObj.subdivision
-    )
-  })
 
 /**
  * Sizes
@@ -105,7 +59,7 @@ const camera = new THREE.PerspectiveCamera(
 )
 camera.position.x = 1
 camera.position.y = 1
-camera.position.z = 2
+camera.position.z = 1
 scene.add(camera)
 
 // Controls
