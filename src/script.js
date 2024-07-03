@@ -4,9 +4,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 /**
  * Textures
  */
-const textureLoader = new THREE.TextureLoader()
-const texture = textureLoader.load('/textures/door/color.jpg')
+const loadingManager = new THREE.LoadingManager()
+const textureLoader = new THREE.TextureLoader(loadingManager)
+const texture = textureLoader.load('/textures/checkerboard-8x8.png')
 texture.colorSpace = THREE.SRGBColorSpace
+texture.generateMipmaps = false
+texture.minFilter = THREE.NearestFilter
+texture.magFilter = THREE.NearestFilter
 
 /**
  * Base
