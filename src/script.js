@@ -2,17 +2,6 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 /**
- * Textures
- */
-const loadingManager = new THREE.LoadingManager()
-const textureLoader = new THREE.TextureLoader(loadingManager)
-const texture = textureLoader.load('/textures/checkerboard-8x8.png')
-texture.colorSpace = THREE.SRGBColorSpace
-texture.generateMipmaps = false
-texture.minFilter = THREE.NearestFilter
-texture.magFilter = THREE.NearestFilter
-
-/**
  * Base
  */
 // Canvas
@@ -20,14 +9,6 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
-
-/**
- * Object
- */
-const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ map: texture })
-const mesh = new THREE.Mesh(geometry, material)
-scene.add(mesh)
 
 /**
  * Sizes
@@ -63,7 +44,7 @@ const camera = new THREE.PerspectiveCamera(
 )
 camera.position.x = 1
 camera.position.y = 1
-camera.position.z = 1
+camera.position.z = 2
 scene.add(camera)
 
 // Controls
