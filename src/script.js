@@ -11,6 +11,74 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 /**
+ * Texture
+ */
+const textureLoader = new THREE.TextureLoader()
+
+const doorColorTexture = textureLoader.load('./textures/door/color.jpg')
+const doorAlphaTexture = textureLoader.load('./textures/door/alpha.jpg')
+const doorAmbientOcclusionTexture = textureLoader.load(
+  './textures/door/ambientOcclusion.jpg'
+)
+const doorHeightTexture = textureLoader.load('./textures/door/height.jpg')
+const doorNormalTexture = textureLoader.load('./textures/door/normal.jpg')
+const doorMetalnessTexture = textureLoader.load('./textures/door/metalness.jpg')
+const doorRoughnessTexture = textureLoader.load('./textures/door/roughness.jpg')
+const matcapTexture = textureLoader.load('./textures/matcaps/8.png')
+const gradientTexture = textureLoader.load('./textures/gradient/5.jpg')
+
+doorColorTexture.colorSpace = THREE.SRGBColorSpace
+matcapTexture.colorSpace = THREE.SRGBColorSpace
+
+/**
+ * Objects
+ */
+const sphereGeometry = new THREE.SphereGeometry(0.5, 16, 16)
+const planeGeometry = new THREE.PlaneGeometry(1, 1)
+const torusGeometry = new THREE.TorusGeometry(0.3, 0.2, 16, 32)
+
+// const commonMaterial = new THREE.MeshBasicMaterial()
+// commonMaterial.map = doorColorTexture
+// commonMaterial.color = new THREE.Color(0x17d372)
+// commonMaterial.wireframe = true
+// commonMaterial.transparent = true
+// commonMaterial.opacity = 0.5
+// commonMaterial.alphaMap = doorAlphaTexture
+// commonMaterial.side = THREE.DoubleSide
+
+// const commonMaterial = new THREE.MeshNormalMaterial()
+// commonMaterial.flatShading = true
+
+const commonMaterial = new THREE.MeshMatcapMaterial()
+commonMaterial.matcap = matcapTexture
+
+// const commonMaterial = new THREE.MeshLambertMaterial()
+
+// MeshToonMaterial
+// const commonMaterial = new THREE.MeshToonMaterial()
+
+const sphere = new THREE.Mesh(sphereGeometry, commonMaterial)
+const plane = new THREE.Mesh(planeGeometry, commonMaterial)
+const torus = new THREE.Mesh(torusGeometry, commonMaterial)
+
+scene.add(sphere, plane, torus)
+
+sphere.position.x = -1.5
+torus.position.x = 1.5
+
+/**
+ * Lights
+ */
+const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+scene.add(ambientLight)
+
+const pointLight = new THREE.PointLight(0xffffff, 30)
+pointLight.position.x = 2
+pointLight.position.y = 3
+pointLight.position.z = 4
+scene.add(pointLight)
+
+/**
  * Sizes
  */
 const sizes = {
@@ -67,6 +135,15 @@ const clock = new THREE.Clock()
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime()
+
+  // Update objects
+  sphere.rotation.x = -0.15 * elapsedTime
+  plane.rotation.x = -0.15 * elapsedTime
+  torus.rotation.x = -0.15 * elapsedTime
+
+  sphere.rotation.y = 0.1 * elapsedTime
+  plane.rotation.y = 0.1 * elapsedTime
+  torus.rotation.y = 0.1 * elapsedTime
 
   // Update controls
   controls.update()
